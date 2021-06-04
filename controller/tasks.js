@@ -31,9 +31,11 @@ exports.deleteTask = async (req, res) => {
 
     await tasksModel.findByIdAndDelete(id, (err, doc) => {
         if (err) {
-            console.log(chalk(err));
+            console.log(chalk.red(err));
             res.status(500).send({ status: "failed", message: err })
         } else {
+            console.log(chalk.green(doc));
+            /* If i keep doc.id in this outlook, it occur in some case error. Wana find out why */
             res.send({ status: "success", message: `Task with ${doc._id} was deleted`})
         }
     })
@@ -60,7 +62,7 @@ exports.updateTask =  async (req, res) => {
             res.send({ status: "success", message: `Task with ${doc._id} was updated`})
         }
     })
-    }
+    } 
 
 // exports.updateContact = async (req, res) => {
 //     console.log(req.body);
